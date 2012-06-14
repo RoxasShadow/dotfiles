@@ -1,0 +1,15 @@
+#Mouse:
+	#b:1 => left click
+	#b:3 => right click
+	#b:4 => scroll up
+	#b:5 => scroll down
+	#b:2 => scroll click
+	#b:9 => left up
+	#b:8 => left down
+
+"xdotool key Page_Up"
+    b:9
+"xdotool key Page_Down"
+    b:8
+"gnome-terminal"
+    control + b:2
