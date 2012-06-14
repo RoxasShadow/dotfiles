@@ -12,6 +12,10 @@ sprunge() {
 	cat $1 | curl -s -F 'sprunge=<-' http://sprunge.us
 }
 
+rmr() {
+  find . -regex ".*\($1\)$" -exec rm -r {} \;
+}
+
 img() {
 	curl -s -F "image=@$1" -F "key=b3625162d3418ac51a9ee805b1840452" http://imgur.com/api/upload.xml | grep -E -o "<original_image>(.)*</original_image>" | grep -E -o "http://i.imgur.com/[^<]*"
 }
