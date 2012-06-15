@@ -1,4 +1,4 @@
-export EDITOR=nano
+export EDITOR=vim
 #export DEVKITPRO=/opt/devkitpro
 #export DEVKITPPC=$DEVKITPRO/devkitPPC
 #export WIILOAD=tcp:192.168.1.92
@@ -6,7 +6,7 @@ export EDITOR=nano
 alias rm='rm -i'
 alias rmdir='rmdir -i'
 alias ref='sudo yum upgrade'
-alias screenshot="scrot ~/Scrivania/'%Y-%m-%d_%T.png'"
+alias ss='screenshot'
 
 sprunge() {
 	cat $1 | curl -s -F 'sprunge=<-' http://sprunge.us
@@ -18,6 +18,11 @@ rmr() {
 
 img() {
 	curl -s -F "image=@$1" -F "key=b3625162d3418ac51a9ee805b1840452" http://imgur.com/api/upload.xml | grep -E -o "<original_image>(.)*</original_image>" | grep -E -o "http://i.imgur.com/[^<]*"
+}
+
+# needs to be improved calling img()
+screenshot() {
+  scrot -c -d $1 '%Y-%m-%d_%T.png' -e 'curl -s -F "image=@$f" -F "key=b3625162d3418ac51a9ee805b1840452" http://imgur.com/api/upload.xml | grep -E -o "<original_image>(.)*</original_image>" | grep -E -o "http://i.imgur.com/[^<]*" && rm $f'
 }
 
 ip() {
