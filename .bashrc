@@ -36,6 +36,14 @@ links() {
 	curl $1 2>&1 | grep -o -E 'href="([^"#]+)"' | cut -d'"' -f2
 }
 
+tor_() {
+	GSETTINGS_BACKEND=dconf gsettings set org.gnome.system.proxy mode manual
+}
+
+untor_() {
+	GSETTINGS_BACKEND=dconf gsettings set org.gnome.system.proxy mode none
+}
+
 #PS1='\[\e[34;1m\]\t \[\e[1;31m\]\u\[\e[m\]@\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;33m\]\$\[\e[m\] '
 #PS1="┌─[ \[\e[34;1m\]\t \[\e[1;31m\]\u\[\e[m\]@\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;33m\]\$\[\e[m\] ]\n└─[ \$> "
 
