@@ -8,6 +8,10 @@ alias rmdir='rmdir -i'
 alias ref='sudo yum upgrade'
 alias ss='screenshot'
 
+proc() {
+	if [[ -n "$1" ]]; then ps aux | grep $1; else ps aux; fi
+}
+
 sprunge() {
 	cat $1 | curl -s -F 'sprunge=<-' http://sprunge.us
 }
@@ -42,10 +46,12 @@ links() {
 }
 
 tor_() {
+	sudo systemctl restart tor.service
 	GSETTINGS_BACKEND=dconf gsettings set org.gnome.system.proxy mode manual
 }
 
 untor_() {
+	sudo systemctl stop tor.service
 	GSETTINGS_BACKEND=dconf gsettings set org.gnome.system.proxy mode none
 }
 
@@ -54,3 +60,5 @@ untor_() {
 
 WIL
 bash /home/giovanni/Workspace/Bash/welcome.sh
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
