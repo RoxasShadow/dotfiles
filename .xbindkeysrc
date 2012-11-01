@@ -1,15 +1,29 @@
-#Mouse:
-	#b:1 => left click
-	#b:3 => right click
+	#b:1 => left   click
+	#b:3 => right  click
+	#b:2 => scroll click
+	
 	#b:4 => scroll up
 	#b:5 => scroll down
-	#b:2 => scroll click
-	#b:9 => left up
-	#b:8 => left down
+	#b:6 => scroll left
+	#b:7 => scroll right
+	
+	#b:8 => lateral down
+	#b:9 => lateral up
 
+# Switch workspace
+"xdotool key Ctrl+Alt+Left"
+    control + b:6
+"xdotool key Ctrl+Alt+Right"
+    control + b:7
+"xdotool key Ctrl+Alt+Up"
+    control + b:4
+"xdotool key Ctrl+Alt+Down"
+    control + b:5
+    
 "xdotool key Page_Up"
     b:9
 "xdotool key Page_Down"
     b:8
+    
 "gnome-terminal"
     control + b:2
