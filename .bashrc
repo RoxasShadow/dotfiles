@@ -1,12 +1,12 @@
-export EDITOR=vim
-#export DEVKITPRO=/opt/devkitpro
-#export DEVKITPPC=$DEVKITPRO/devkitPPC
-#export WIILOAD=tcp:192.168.1.92
+export EDITOR=nano
 
 alias rm='rm -i'
 alias rmdir='rmdir -i'
-alias ref='sudo yum upgrade'
+alias ref='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
 alias ss='screenshot'
+alias xclip='xclip -selection c'
+alias startx='startx -- :1'
+alias in='sudo apt-get install'
 
 proc() {
 	if [[ -n "$1" ]]; then ps aux | grep $1; else ps aux; fi
@@ -58,7 +58,7 @@ untor_() {
 #PS1='\[\e[34;1m\]\t \[\e[1;31m\]\u\[\e[m\]@\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;33m\]\$\[\e[m\] '
 #PS1="┌─[ \[\e[34;1m\]\t \[\e[1;31m\]\u\[\e[m\]@\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;33m\]\$\[\e[m\] ]\n└─[ \$> "
 
-WIL
-bash /home/giovanni/Workspace/Bash/welcome.sh
+#WIL
+#bash /home/giovanni/Workspace/Bash/welcome.sh
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

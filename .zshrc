@@ -36,3 +36,6 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select
+autoload zmv
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
