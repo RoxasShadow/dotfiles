@@ -162,7 +162,7 @@ index ff12b7f..0000000
 -system-time-offscreen-pos=-100
 -title-offscreen-pos=-40
 diff --git a/mpv.conf b/mpv.conf
-index 88ca848..f3472a5 100644
+index 88ca848..02f26f3 100644
 --- a/mpv.conf
 +++ b/mpv.conf
 @@ -1,72 +1,32 @@
@@ -277,7 +277,7 @@ index 88ca848..f3472a5 100644
  ################
  # Video Output #
  ################
-@@ -123,84 +77,58 @@ volume=100                              # default volume, 100 = unchanged
+@@ -123,84 +77,60 @@ volume=100                              # default volume, 100 = unchanged
  # on_battery(), is_laptop() and is_dektop() are my own additional functions imported from scripts/auto-profiles-functions.lua
  
  # Defaults for all profiles
@@ -302,6 +302,8 @@ index 88ca848..f3472a5 100644
 +cscale-antiring=0.7 #Chroma upscale deringing (Higher = Less rining, but more detail loss)
 +
 +# for scale algos, check https://iamscum.wordpress.com/videoplayback-guide/mpv-conf/
++
++scaler-resizes-only
  
  [high-quality]
 -profile-desc=cond:is_desktop() and get('width', math.huge) < 3840
@@ -424,6 +426,13 @@ index 6c6efee..accc603 100644
  end
  
  function on_battery()
+diff --git a/scripts/mpv-stats b/scripts/mpv-stats
+new file mode 160000
+index 0000000..35587e7
+--- /dev/null
++++ b/scripts/mpv-stats
+@@ -0,0 +1 @@
++Subproject commit 35587e703b7340d86cb7734286d1730643b8ed2a
 diff --git a/scripts/progressbar.lua b/scripts/progressbar.lua
 deleted file mode 100644
 index a0efa1a..0000000
@@ -2476,3 +2485,37 @@ index a0efa1a..0000000
 -  return mp.register_event('playback-restart', initDraw)
 -end
 -return mp.register_event('file-loaded', fileLoaded)
+diff --git a/scripts/stats.lua b/scripts/stats.lua
+index ca9e408..810bf3e 120000
+--- a/scripts/stats.lua
++++ b/scripts/stats.lua
+@@ -1 +1 @@
+-/Users/Julian/Documents/Code/Lua/mpv-stats/stats.lua
+\ No newline at end of file
++mpv-stats/stats.lua
+\ No newline at end of file
+diff --git a/shaders/noise_static_luma.hook b/shaders/noise_static_luma.hook
+new file mode 100644
+index 0000000..d529cd1
+--- /dev/null
++++ b/shaders/noise_static_luma.hook
+@@ -0,0 +1,19 @@
++//!HOOK LUMA
++//!BIND HOOKED
++
++// Change this to tune the strength of the noise
++// Apparently this has to be float on some setups
++#define STRENGTH 48.0
++
++// PRNG taken from mpv's deband shader
++float mod289(float x)  { return x - floor(x / 289.0) * 289.0; }
++float permute(float x) { return mod289((34.0*x + 1.0) * x); }
++float rand(float x)    { return fract(x / 41.0); }
++
++vec4 hook()  {
++    vec3 _m = vec3(HOOKED_pos, 1.0) + vec3(1.0);
++    float h = permute(permute(permute(_m.x)+_m.y)+_m.z);
++    vec4 noise;
++    noise.x = rand(h);
++    return HOOKED_tex(HOOKED_pos) + vec4(STRENGTH/8192.0) * (noise - 0.5);
++}
