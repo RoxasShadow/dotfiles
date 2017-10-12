@@ -6,9 +6,13 @@
 
 # mpv
 ```
-$ git clone --recursive https://github.com/Argon-/mpv-config
+$ git clone --recursive https://github.com/Argon-/mpv-config mpv
+$ cd mpv
 $ git submodule update
-$ git clone https://github.com/Argon-/mpv-stats # then move stats.lua to scripts/
+$ git clone https://github.com/Argon-/mpv-stats scripts/mpv-stats
+$ cd scripts
+$ rm stats.lua
+$ ln -s mpv-stats/stats.lua stats.lua
 $ patch -p1 < mpv.patch
 ```
 
