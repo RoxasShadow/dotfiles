@@ -2,7 +2,7 @@
 `$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
 # vim
-`$ git clone https://github.com/meh/vimmeh`
+`$ git clone --recursive git://github.com/meh/vimmeh.git`
 
 # mpv
 ```
