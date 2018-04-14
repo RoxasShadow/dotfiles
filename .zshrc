@@ -56,7 +56,8 @@ source ~/.bashrc
 
 # User configuration
 
-export PATH="$PATH:/usr/local/bin:/Users/giovanni/.rvm/gems/ruby-2.1.1/bin:/Users/giovanni/.rvm/gems/ruby-2.1.1@global/bin:/Users/giovanni/.rvm/rubies/ruby-2.1.1/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/giovanni/.rvm/bin:/Users/giovanni/.cargo/bin"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/usr/local/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -77,37 +78,7 @@ export PATH="$PATH:/usr/local/bin:/Users/giovanni/.rvm/gems/ruby-2.1.1/bin:/User
 
 DISABLE_UPDATE_PROMPT=true
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 ulimit -n 2560
 
-export PATH="/usr/local/sbin:$PATH"
 export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
 export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
