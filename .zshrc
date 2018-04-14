@@ -53,6 +53,7 @@ plugins=(command-not-found history osx nyan history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bashrc
+source ~/.profile
 
 # User configuration
 
