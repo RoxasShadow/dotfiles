@@ -21,7 +21,13 @@ $ git config --global alias.co checkout
 $ git config --global credential.helper store
 ```
 
-# n?vim
+# neovim
+```
+$ sudo apt-get install python-pip
+$ pip install -U pip
+$ sudo pip install --upgrade neovim
+```
+
 ```
 $ git clone --recursive git://github.com/meh/vimmeh.git .vimmeh`
 $ ln -s ~/.vimmeh ~/.vim`
