@@ -10,6 +10,12 @@ $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ ln -s ~/.vimrc ~/.config/nvim/init.vim`
 ```
 
+```
+$ cd ~/.vim/bundle/YouCompleteMe
+$ sudo apt-get install build-essential cmake python-dev python3-dev
+$ ./install.py --js-completer --rust-completer --clang-completer
+```
+
 # mpv
 ```
 $ git clone --recursive https://github.com/Argon-/mpv-config mpv
