@@ -53,7 +53,6 @@ plugins=(command-not-found history osx nyan history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bashrc
-source ~/.profile
 
 # User configuration
 
@@ -83,3 +82,5 @@ ulimit -n 2560
 
 export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
 export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
+
+source ~/.profile
