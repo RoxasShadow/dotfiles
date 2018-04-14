@@ -1,8 +1,12 @@
 # ZSH
 `$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
-# vim
-`$ git clone --recursive git://github.com/meh/vimmeh.git`
+# n?vim
+`$ git clone --recursive git://github.com/meh/vimmeh.git .vimmeh`
+`$ ln -s ~/.vimmeh ~/.vim`
+`$ ln -s ~/.vimmeh/vimrc ~/.vimrc`
+`$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+`$ ln -s ~/.vimrc ~/.config/nvim/init.vim`
 
 # mpv
 ```
