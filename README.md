@@ -29,11 +29,11 @@ $ sudo pip install --upgrade neovim
 ```
 
 ```
-$ git clone --recursive git://github.com/meh/vimmeh.git .vimmeh`
-$ ln -s ~/.vimmeh ~/.vim`
-$ ln -s ~/.vimmeh/vimrc ~/.vimrc`
-$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
-$ ln -s ~/.vimrc ~/.config/nvim/init.vim`
+$ git clone --recursive git://github.com/meh/vimmeh.git .vimmeh
+$ ln -s ~/.vimmeh ~/.vim
+$ ln -s ~/.vimmeh/vimrc ~/.vimrc
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ ln -s ~/.vimrc ~/.config/nvim/init.vim
 ```
 
 ```
