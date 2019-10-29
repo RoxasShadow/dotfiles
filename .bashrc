@@ -9,6 +9,14 @@ alias xclip='xclip -selection c'
 alias lol='echo lol'
 alias nano='vim'
 
+alias vim="nvim"
+alias vi="nvim"
+alias oldvim="vim"
+alias pip="pip3"
+
+alias rm='rm -i'
+alias rmdir='rmdir -i'
+
 proc() {
   if [[ -n "$1" ]]; then ps aux | grep $1; else ps aux; fi
 }

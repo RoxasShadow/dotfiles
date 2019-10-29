@@ -49,7 +49,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git environment editor completion history directory spectrum archive command-not-found rsync ruby perl yum syntax-highlighting history-substring-search prompt)
-plugins=(command-not-found history osx nyan history-substring-search)
+plugins=(command-not-found history osx history-substring-search z branch bundler)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bashrc
@@ -58,6 +58,7 @@ source ~/.bashrc
 
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin/:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -84,3 +85,6 @@ export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
 export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
 
 source ~/.profile
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
