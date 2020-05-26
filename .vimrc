@@ -69,6 +69,19 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'rust-lang/rust.vim'
 Plugin 'cespare/vim-toml'
 Plugin 'bumaociyuan/vim-swift'
+Plugin 'simeji/winresizer'
+Plugin 'zefei/vim-wintabs'
+Plugin 'zefei/vim-wintabs-powerline'
+Plugin 'janko/vim-test'
+
+if exists("*nvim_create_namespace")
+  Plugin 'APZelos/blamer.nvim'
+endif
+
+" Rg
+set rtp+=/usr/local/opt/fzf
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()
 
@@ -143,7 +156,7 @@ set magic
 set hidden
 set shortmess=atI
 set wildignore+=*.o,*.obj,.git,*.a,*.so,*.lo,*.class,*.beam,deps/*,Mnesia.*,*.hi,vendor/*,copycat/*,target/*
-let mapleader="ò"
+let mapleader=";"
 set notimeout
 set ttimeout
 set ttimeoutlen=10
@@ -184,6 +197,12 @@ set backspace=2
 
 set wildmode=longest:full
 set wildmenu
+
+if exists("*nvim_create_namespace")
+  let g:blamer_enabled = 1
+  ":call BlamerToggle
+  let g:blamer_delay = 500
+endif
 
 " Status line
 let s:last_window_id = 0
@@ -594,5 +613,20 @@ autocmd BufWrite * :call DeleteTrailingWS()
 "set background=dark
 "colorscheme base16-monokai
 
+" Resize
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+let g:winresizer_start_key = '<C-T>'
+
+" Test
+let test#strategy = "neovim"
+let g:test#preserve_screen = 1
+let test#neovim#term_position = "botright 10"
+let test#ruby#use_spring_binstub = 1
+
+" Press Ctrl-o to exit the test terminal
+tmap <C-o> <C-\><C-n>
+
+" Wintabs
+map <C-H> <Plug>(wintabs_previous)
+map <C-L> <Plug>(wintabs_next)
