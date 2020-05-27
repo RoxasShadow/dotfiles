@@ -27,8 +27,8 @@ Plugin 'jamessan/vim-gnupg'
 Plugin 'sjl/gundo.vim'
 "Plugin 'hsanson/vim-android'
 Plugin 'paradigm/vim-multicursor'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
+Plugin 'preservim/nerdcommenter'
+Plugin 'preservim/nerdtree'
 Plugin 'dbakker/vim-projectroot'
 Plugin 'tpope/vim-repeat'
 Plugin 'mhinz/vim-rfc'
@@ -475,8 +475,19 @@ let g:rust_recommended_style = 1
 " delimitMate
 let g:delimitMate_no_esc_mapping = 1
 
+" NERDComment (leader-c-space for toggling)
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+
 " NERDTree
 let NERDTreeIgnore=['\.so$', '\.o$', '\.la$', '\.a$', '\.class$', '\~$', '\.beam$', '^Mnesia.', 'deps/', '\.hi$', 'vendor/', 'target/']
+
+" NERDTree when no file are opened
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " NoHomo
 let g:nohomo_ignore_filetype = ['mail', 'markdown', 'scss', 'mustache']
@@ -626,7 +637,5 @@ let test#ruby#use_spring_binstub = 1
 
 " Press Ctrl-o to exit the test terminal
 tmap <C-o> <C-\><C-n>
-
-" Wintabs
-map <C-H> <Plug>(wintabs_previous)
-map <C-L> <Plug>(wintabs_next)
+map <Leader>H <Plug>(wintabs_previous)
+map <Leader>L <Plug>(wintabs_next)
