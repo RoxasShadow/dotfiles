@@ -632,10 +632,21 @@ let g:winresizer_start_key = '<C-T>'
 " Test
 let test#strategy = "neovim"
 let g:test#preserve_screen = 1
-let test#neovim#term_position = "botright 10"
+let test#neovim#term_position = "botright 20"
 let test#ruby#use_spring_binstub = 1
 
 " Press Ctrl-o to exit the test terminal
 tmap <C-o> <C-\><C-n>
-map <Leader>H <Plug>(wintabs_previous)
-map <Leader>L <Plug>(wintabs_next)
+map <Leader>h <Plug>(wintabs_previous)
+map <Leader>l <Plug>(wintabs_next)
+map <Leader>d <Plug>(wintabs_close_vimtab)
+
+" Fold current block in normal mode with F9
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
+
+set foldmethod=syntax
+set nofoldenable
+set foldlevel=99
