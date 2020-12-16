@@ -9,81 +9,80 @@ set nocompatible
 runtime macros/matchit.vim
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'gmarik/Vundle.vim'
-
-" Plugins
-Plugin 'mileszs/ack.vim'
-Plugin 'tpope/vim-classpath'
-Plugin 'tpope/vim-fireplace'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'ciaranm/detectindent'
-Plugin 'vim-scripts/DrawIt'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'tpope/vim-fugitive'
-Plugin 'jamessan/vim-gnupg'
-Plugin 'sjl/gundo.vim'
-"Plugin 'hsanson/vim-android'
-Plugin 'paradigm/vim-multicursor'
-Plugin 'preservim/nerdcommenter'
-Plugin 'preservim/nerdtree'
-Plugin 'dbakker/vim-projectroot'
-Plugin 'tpope/vim-repeat'
-Plugin 'mhinz/vim-rfc'
-Plugin 'mhinz/vim-signify'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimproc'
-Plugin 'Shougo/vimshell'
-Plugin 'Shougo/vinarise'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-eunuch'
-Plugin 'mattn/webapi-vim'
-Plugin 'mattn/gist-vim'
+" Plugs
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-classpath'
+Plug 'tpope/vim-fireplace'
+Plug 'git://git.wincent.com/command-t.git'
+Plug 'ciaranm/detectindent'
+Plug 'vim-scripts/DrawIt'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-fugitive'
+Plug 'jamessan/vim-gnupg'
+Plug 'sjl/gundo.vim'
+"Plug 'hsanson/vim-android'
+Plug 'paradigm/vim-multicursor'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'dbakker/vim-projectroot'
+Plug 'tpope/vim-repeat'
+Plug 'mhinz/vim-rfc'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-unimpaired'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc'
+Plug 'Shougo/vimshell'
+Plug 'Shougo/vinarise'
+Plug 'tpope/vim-eunuch'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 " Syntax
-Plugin 'raymond-w-ko/vim-niji'
-Plugin 'vim-scripts/Cpp11-Syntax-Support'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'vim-scripts/ebnf.vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'jimenezrick/vimerl'
-Plugin 'tpope/vim-haml'
-Plugin 'vim-scripts/haskell.vim'
-Plugin 'vim-scripts/jam.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/JSON.vim'
-Plugin 'groenewege/vim-less'
-Plugin 'tpope/vim-markdown'
-Plugin 'juvenn/mustache.vim'
-Plugin 'programble/ooc.vim'
-Plugin 'petdance/vim-perl'
-Plugin 'uarun/vim-protobuf'
-Plugin 'vim-scripts/rfc-syntax'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'rust-lang/rust.vim'
-Plugin 'cespare/vim-toml'
-Plugin 'bumaociyuan/vim-swift'
-Plugin 'simeji/winresizer'
-Plugin 'zefei/vim-wintabs'
-Plugin 'zefei/vim-wintabs-powerline'
-Plugin 'janko/vim-test'
+Plug 'raymond-w-ko/vim-niji'
+Plug 'vim-scripts/Cpp11-Syntax-Support'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'vim-scripts/ebnf.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'jimenezrick/vimerl'
+Plug 'tpope/vim-haml'
+Plug 'vim-scripts/haskell.vim'
+Plug 'vim-scripts/jam.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-scripts/JSON.vim'
+Plug 'groenewege/vim-less'
+Plug 'tpope/vim-markdown'
+Plug 'juvenn/mustache.vim'
+Plug 'programble/ooc.vim'
+Plug 'petdance/vim-perl'
+Plug 'uarun/vim-protobuf'
+Plug 'vim-scripts/rfc-syntax'
+Plug 'vim-ruby/vim-ruby'
+Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
+Plug 'bumaociyuan/vim-swift'
+Plug 'simeji/winresizer'
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs-powerline'
+Plug 'janko/vim-test'
+
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+let g:coc_global_extensions = ['coc-solargraph']
 
 if exists("*nvim_create_namespace")
-  Plugin 'APZelos/blamer.nvim'
+"  Plug 'APZelos/blamer.nvim'
 endif
 
 " Rg
-set rtp+=/usr/local/opt/fzf
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+let g:fzf_install = 'yes | ./install'
+Plug 'junegunn/fzf', { 'do': g:fzf_install }
+Plug 'junegunn/fzf.vim'
 
-call vundle#end()
+call plug#end()
 
 syntax enable
 filetype plugin indent on
@@ -185,7 +184,7 @@ set smartindent
 set preserveindent
 "set smarttab
 "set smartcase
-set ignorecase
+"set ignorecase
 set shiftwidth=2
 set softtabstop=2
 "set ts=2
@@ -194,15 +193,16 @@ set modeline
 set tildeop
 set cpoptions+=$
 set backspace=2
+set textwidth=72
 
 set wildmode=longest:full
 set wildmenu
 
-if exists("*nvim_create_namespace")
-  let g:blamer_enabled = 1
-  ":call BlamerToggle
-  let g:blamer_delay = 500
-endif
+"if exists("*nvim_create_namespace")
+"  let g:blamer_enabled = 0
+"  ":call BlamerToggle
+"  let g:blamer_delay = 500
+"endif
 
 " Status line
 let s:last_window_id = 0
@@ -510,28 +510,6 @@ let g:syntastic_cpp_compiler_options = "-std=c++11"
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'passive_filetypes': ['elixir', 'javascript'] }
 
-" You Complete Me
-let g:ycm_global_ycm_extra_conf     = $HOME . '/.vim/ycm.py'
-let g:ycm_extra_conf_vim_data       = ['&filetype', 'g:syntastic_c_compiler_options', 'g:syntastic_cpp_compiler_options']
-let g:ycm_key_invoke_completion     = '<Leader><Leader><Tab>'
-
-let g:ycm_key_list_select_completion   = ['<Tab>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<Leader><Tab>', '<Up>']
-
-let g:ycm_min_num_of_chars_for_completion = 3
-
-let g:ycm_rust_src_path = '/home/meh/projects/nih/rust'
-
-set completeopt=menuone
-
-let g:ycm_filetype_blacklist = {
-	\ 'notes' : 1,
-	\ 'markdown' : 1,
-	\ 'text' : 1,
-	\ 'gitcommit': 1,
-	\ 'mail': 1,
-\}
-
 " Signify
 let g:signify_sign_overwrite = 1
 
@@ -627,6 +605,8 @@ autocmd BufWrite * :call DeleteTrailingWS()
 " Resize
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>> :vertical res -3<<CR>
+nnoremap <silent> <Leader>< :vertical res +3<<CR>
 let g:winresizer_start_key = '<C-T>'
 
 " Test
@@ -639,14 +619,17 @@ let test#ruby#use_spring_binstub = 1
 tmap <C-o> <C-\><C-n>
 map <Leader>h <Plug>(wintabs_previous)
 map <Leader>l <Plug>(wintabs_next)
-map <Leader>d <Plug>(wintabs_close_vimtab)
+map <Leader>d <Plug>(wintabs_close)
 
 " Fold current block in normal mode with F9
 inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
-
+" todo: fold everything
+"
 set foldmethod=syntax
 set nofoldenable
 set foldlevel=99
+
+source ~/.config/nvim/coc.vim
