@@ -41,6 +41,7 @@ Plug 'Shougo/vinarise'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
+Plug 'skwp/vim-spec-finder'
 
 " Syntax
 Plug 'raymond-w-ko/vim-niji'
@@ -633,3 +634,4 @@ set nofoldenable
 set foldlevel=99
 
 source ~/.config/nvim/coc.vim
+source ~/.config/nvim/spec-finder.vim
