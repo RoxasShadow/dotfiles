@@ -1,3 +1,4 @@
+#zmodload zsh/zprof
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -84,7 +85,16 @@ ulimit -n 2560
 export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
 export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
 
-source ~/.profile
+# for pulling a branch that was force-pushed
+alias gpull='branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD) && git fetch && git reset --hard "origin/$branch"'
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+zprof
+
+[ -z "$ZSH_NAME" ] && [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export JAVA_HOME="/usr/local/opt/openjdk"
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+source ~/.profile
