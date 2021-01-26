@@ -1,10 +1,3 @@
-" Disable compression shit
-" let loaded_gzip        = 1
-" let g:loaded_tarPlugin = 1
-" let g:loaded_tar       = 1
-" let g:loadedZipPlugin  = 1
-" let g:loaded_zip       = 1
-
 set nocompatible
 runtime macros/matchit.vim
 filetype off
@@ -12,47 +5,45 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Plugs
+Plug 'https://github.com/adelarsq/vim-matchit'
+Plug 'dstein64/vim-startuptime'
+Plug 'mhinz/vim-startify'
+Plug 'danchoi/ri.vim'
+Plug 'tpope/vim-surround' " e.g. ys$
+Plug 'tpope/vim-commentary'
 Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-classpath'
-Plug 'tpope/vim-fireplace'
-Plug 'git://git.wincent.com/command-t.git'
 Plug 'ciaranm/detectindent'
 Plug 'vim-scripts/DrawIt'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'jamessan/vim-gnupg'
-Plug 'sjl/gundo.vim'
-"Plug 'hsanson/vim-android'
+Plug 'simnalamburt/vim-mundo'
 Plug 'paradigm/vim-multicursor'
-Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'dbakker/vim-projectroot'
 Plug 'tpope/vim-repeat'
-Plug 'mhinz/vim-rfc'
 Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-unimpaired'
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimproc'
-Plug 'Shougo/vimshell'
-Plug 'Shougo/vinarise'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim'
 Plug 'skwp/vim-spec-finder'
+Plug 'simeji/winresizer'
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs-powerline'
+Plug 'janko/vim-test'
+Plug 'Konfekt/FastFold'
 
 " Syntax
 Plug 'raymond-w-ko/vim-niji'
 Plug 'vim-scripts/Cpp11-Syntax-Support'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'vim-scripts/ebnf.vim'
-Plug 'elixir-lang/vim-elixir'
 Plug 'jimenezrick/vimerl'
 Plug 'tpope/vim-haml'
 Plug 'vim-scripts/haskell.vim'
-Plug 'vim-scripts/jam.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'vim-scripts/JSON.vim'
 Plug 'groenewege/vim-less'
@@ -66,10 +57,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'bumaociyuan/vim-swift'
-Plug 'simeji/winresizer'
-Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
-Plug 'janko/vim-test'
 
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 let g:coc_global_extensions = ['coc-solargraph']
@@ -78,9 +65,7 @@ if exists("*nvim_create_namespace")
 "  Plug 'APZelos/blamer.nvim'
 endif
 
-" Rg
-let g:fzf_install = 'yes | ./install'
-Plug 'junegunn/fzf', { 'do': g:fzf_install }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
@@ -139,7 +124,7 @@ augroup cline
 	au VimEnter * set cursorline
 augroup END
 
-au VimResized * :wincmd =
+autocmd VimResized * :wincmd =
 
 set shell=zsh
 set mouse=
@@ -152,10 +137,11 @@ set undolevels=1000
 set undoreload=10000
 set noerrorbells
 set novisualbell
+set emoji
 set magic
 set hidden
 set shortmess=atI
-set wildignore+=*.o,*.obj,.git,*.a,*.so,*.lo,*.class,*.beam,deps/*,Mnesia.*,*.hi,vendor/*,copycat/*,target/*
+set wildignore+=*.o,*.obj,.git,*.a,*.so,*.lo,deps/,vendor/*,target/*
 let mapleader=";"
 set notimeout
 set ttimeout
@@ -206,230 +192,14 @@ set wildmenu
 "endif
 
 " Status line
-let s:last_window_id = 0
-function StatusLine_id(winnr)
-	let r = getwinvar(a:winnr, 'window_id')
-
-	if empty(r)
-		let r = s:last_window_id
-		let s:last_window_id += 1
-
-		call setwinvar(a:winnr, 'window_id', r)
-	endif
-
-	" Without this condition it triggers unneeded statusline redraw
-	if getwinvar(a:winnr, '&statusline') isnot# '%!StatusLine_render('.r.')'
-		call setwinvar(a:winnr, '&statusline', '%!StatusLine_render('.r.')')
-	endif
-
-	return r
-endfunction
-
-function StatusLine_git()
-	if !exists('b:git_dir')
-		return
-	endif
-
-	let b:git_head = fugitive#head(7)
-
-  let cd  = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
-	let dir = getcwd()
-
-  try
-		let root = b:git_dir
-
-		if match(root, '\.git$') != -1
-			let root = root[0:-5]
-		endif
-
-		let full = expand('%:p')
-		let rel  = full[strlen(root) : strlen(full)]
-
-		execute cd.root
-
-		let status = system('git status --porcelain --ignored -- ' . shellescape(full))
-		if strlen(l:status) != 1
-			let b:git_status = l:status[0:2]
-		endif
-
-		let diff = system('git branch -v -v | grep "^\*.*[.*?: .*?]" | sed -e "s@^.*\[[A-Za-z]*/[A-Za-z]*: \(.*[0-9][0-9]*\)\]*.*\$@\1@"')
-		if strlen(l:diff)
-			let b:git_diff = split(l:diff)
-		else
-			let b:git_diff = []
-		endif
-
-		return b:git_status
-  finally
-    execute cd.'`=dir`'
-  endtry
-endfunction
-
-function StatusLine_entry(current, bufnr)
-	let render = ''
-
-	if a:bufnr == -1
-		if a:current
-			let render .= "%1*!%*"
-		else
-			let render .= "%3*!%*"
-		endif
-	else
-		let modifiable = getbufvar(a:bufnr, '&modifiable')
-		let readonly   = getbufvar(a:bufnr, '&readonly')
-		let modified   = getbufvar(a:bufnr, '&modified')
-
-		if modifiable && !readonly && !modified
-			if a:current
-				let render .= "%1*!%*"
-			else
-				let render .= "%3*!%*"
-			endif
-		endif
-
-		if !modifiable || readonly
-			if a:current
-				let render .= "%1*⭤%*"
-			else
-				let render .= "%3*⭤%*"
-			endif
-		endif
-
-		if modified
-			if a:current
-				let render .= "%1*+%*"
-			else
-				let render .= "%3*+%*"
-			endif
-		endif
-	endif
-
-	return render
-endfunction
-
-function StatusLine_render_help(winnr, bufnr, current)
-	let left    = ""
-	let right   = ""
-
-	let left .= "["
-	let left .= StatusLine_entry(a:current, -1)
-	let left .= " %1*%{expand('%:t:r')}%*"
-	let left .= "] "
-
-	let right .= " [%1*help%*]"
-	let right .= " [%1*%p%%%*]"
-
-	return left . "%=" . right
-endfunction
-
-function StatusLine_render_none(winnr)
-	return repeat('─', winwidth(a:winnr))
-endfunction
-
-function StatusLine_render_normal(winnr, bufnr, current)
-	let left    = ""
-	let right   = ""
-
-	if strlen(bufname(a:bufnr))
-		let entry = StatusLine_entry(a:current, a:bufnr)
-
-		let left .= "["
-		let left .= StatusLine_entry(a:current, a:bufnr)
-		if strlen(l:entry)
-			let left .= " "
-		endif
-		let left .= "%2*%{substitute(expand('%:h'), expand('$HOME'), '~', 'g')}/%1*%{expand('%:t')}%*"
-		let left .= "] "
-	else
-		let left .= "[" . StatusLine_entry(a:current, a:bufnr) . "] "
-	endif
-
-	let git_head   = getbufvar(a:bufnr, 'git_head')
-	let git_status = getbufvar(a:bufnr, 'git_status')
-	let git_diff   = getbufvar(a:bufnr, 'git_diff')
-
-	if strlen(l:git_head)
-		let left .= "["
-		if strlen(l:git_status)
-			if l:git_status[1] == 'M' && l:git_status[0] != 'M'
-				let left .= "%4*%* "
-			elseif l:git_status[0] == 'A' || l:git_status[0] == 'M'
-				let left .= "%5*%* "
-			elseif l:git_status[0] == 'D'
-				let left .= "%6*%* "
-			else
-				let left .= "%1*%* "
-			endif
-		else
-			let left .= "%1*%* "
-		endif
-		let left .= "%2*" . l:git_head . "%*"
-
-		if len(l:git_diff) == 2
-			let left .= ' '
-
-			if l:git_diff[0] == 'ahead'
-				let left .= '>> '
-			else
-				let left .= '<< '
-			endif
-
-			let left .= "%2*" . l:git_diff[1] . "%*"
-		endif
-
-		let left .= "] "
-	endif
-
-	if strlen(getwinvar(a:winnr, '&filetype'))
-		let right .= " [%1*%{&filetype}%* %2*%{&enc}%*]"
-	else
-		let right .= " [%1*%*%2*%{&enc}%*]"
-	endif
-
-	let right .= " [%1*%l%*:%2*%c%* %1*%p%%%*]"
-
-	return left . "%=" . right
-endfunction
-
-function StatusLine_render(window_id)
-	let winnr   = index(map(range(1, winnr('$')), 'StatusLine_id(v:val)'), a:window_id) + 1
-	let bufnr   = winbufnr(l:winnr)
-	let current = w:window_id is# a:window_id
-
-	if getwinvar(l:winnr, '&filetype') == 'help'
-		return StatusLine_render_help(l:winnr, l:bufnr, l:current)
-	elseif bufname(l:bufnr) =~ "NERD_tree" || bufname(l:bufnr) =~ "Tagbar" || getwinvar(l:winnr, '&filetype') == 'startify'
-		return StatusLine_render_none(l:winnr)
-	else
-		return StatusLine_render_normal(l:winnr, l:bufnr, l:current)
-	endif
-endfunction
-
-function StatusLine_new()
-	call map(range(1, winnr('$')), 'StatusLine_id(v:val)')
-endfunction
-
-"autocmd BufWritePost * call StatusLine_git()
-"autocmd BufReadPost *  call StatusLine_git()
-"autocmd WinEnter *  call StatusLine_git()
-"autocmd VimEnter * call StatusLine_git()
-
-set showmode
-set laststatus=2
-set statusline=%!StatusLine_new()
-call StatusLine_new()
-
-" Commands
-command! -range=% Share silent <line1>,<line2>write !curl -s -F "sprunge=<-" http://sprunge.us | head -n 1 | tr -d '\r\n ' | DISPLAY=:0.0 xclip
-command! -nargs=1 Indentation silent set ts=<args> shiftwidth=<args>
-command! -nargs=1 IndentationLocal silent setlocal ts=<args> shiftwidth=<args>
+source ~/.config/nvim/status_line.vim
 
 map <silent> <PageUp> 1000<C-U>
 map <silent> <PageDown> 1000<C-D>
 imap <silent> <PageUp> <C-O>1000<C-U>
 imap <silent> <PageDown> <C-O>1000<C-D>
 
-" Disable arrows to learn to stop using them
+" Disable arrows
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -452,20 +222,12 @@ nnoremap <silent> <C-l> :wincmd l<CR>
 nnoremap <silent> <C-j> :wincmd j<CR>
 
 " Other mappings
-nmap <Leader>f :CommandT<CR>
-nmap <Leader>b :CommandTBuffer<CR>
-nmap <Leader>t :CommandTTag<CR>
-nmap <Leader>r :CommandTFlush<CR>
-nmap <Leader>y :YcmShowDetailedDiagnostic<CR>
-
 nmap <Leader>s :mksession! .vim.session<CR>
 nmap <Leader>n :nohlsearch<CR>
 
 nmap <Leader>N :NERDTreeToggle<CR>
 nmap <Leader>T :TagbarToggle<CR>
-nmap <Leader>U :GundoToggle<CR>
-nmap <Leader>Y :YcmDiags<CR>
-nmap <Leader>R :YcmCompleter ClearCompilationFlagCache<CR>:YcmForceCompileAndDiagnostics<CR>
+nmap <Leader>U :MundoToggle<CR>
 nmap <Leader>S :SyntasticCheck<CR>
 
 vnoremap <silent> <Enter> :EasyAlign<CR>
@@ -476,22 +238,11 @@ let g:rust_recommended_style = 1
 " delimitMate
 let g:delimitMate_no_esc_mapping = 1
 
-" NERDComment (leader-c-space for toggling)
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-
 " NERDTree
 let NERDTreeIgnore=['\.so$', '\.o$', '\.la$', '\.a$', '\.class$', '\~$', '\.beam$', '^Mnesia.', 'deps/', '\.hi$', 'vendor/', 'target/']
 
-" NERDTree when no file are opened
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" NoHomo
-let g:nohomo_ignore_filetype = ['mail', 'markdown', 'scss', 'mustache']
+" Open tagbar automatically
+autocmd VimEnter * TagbarToggle
 
 " Syntastic
 let g:syntastic_enable_signs         = 1
@@ -509,7 +260,7 @@ let g:syntastic_cpp_checker          = "clang"
 let g:syntastic_cpp_compiler_options = "-std=c++11"
 
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'passive_filetypes': ['elixir', 'javascript'] }
+                           \ 'passive_filetypes': ['javascript'] }
 
 " Signify
 let g:signify_sign_overwrite = 1
@@ -528,15 +279,6 @@ let g:niji_darkblood_colours = [
 	\ ['237', '237'],
 	\ ['235', '235'],
 	\]
-
-" Command-T
-let g:CommandTMaxFiles          = 100000
-let g:CommandTMaxDepth          = 100
-let g:CommandTNeverShowDotFiles = 1
-
-" cctree
-let g:CCTreeUsePerl        = 1
-let g:CCTreeUseUTF8Symbols = 1
 
 " Clojure
 let g:clojure_align_multiline_strings = 1
@@ -569,28 +311,14 @@ if exists("vimpager")
 	set nonumber
 endif
 
-" vimshell
-" let g:vimshell_environment_term       = 'rxvt-256color'
-let g:vimshell_scrollback_limit       = 10240
-
-autocmd FileType vimshell
-	\ nnoremap <silent> <C-k> :wincmd k<CR>
-
-autocmd FileType int-*
-	\ nnoremap <silent> <C-k> :wincmd k<CR>
-
-" vinarise
-let g:vinarise_enable_auto_detect = 1
-let g:vinarise_detect_large_file_size = -1
-
-autocmd FileType vinarise
-	\  nmap <buffer> <C-l> :wincmd l<CR>
-	\| nmap <buffer> <C-c> <Plug>(vinarise_redraw)
-
 " gist
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_browser_command = 'echo %URL% | xclip'
+
+" sprunge
+command! -range=% Share silent <line1>,<line2>write !curl -s -F "sprunge=<-" http://sprunge.us | head -n 1 | tr -d '\r\n ' | DISPLAY=:0.0 pbcopy
+command! Amend Git add .  | Git commit --amend
 
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -600,10 +328,7 @@ endfunc
 
 autocmd BufWrite * :call DeleteTrailingWS()
 
-"set background=dark
-"colorscheme base16-monokai
-
-" Resize
+" Resize (also Ctrl+t)
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :vertical res -3<<CR>
@@ -627,11 +352,22 @@ inoremap <F9> <C-O>za
 nnoremap <F9> za
 onoremap <F9> <C-C>za
 vnoremap <F9> zf
-" todo: fold everything
-"
+
+" these seem to make new lines (o) slow
 set foldmethod=syntax
 set nofoldenable
 set foldlevel=99
 
+" fastfold
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+
 source ~/.config/nvim/coc.vim
+
+" Open related test file with :RelatedSpecOpen / Ctrl+s
 source ~/.config/nvim/spec-finder.vim
+
+" File search with fzf/Ag
+nnoremap <c-p> :Files<CR>
