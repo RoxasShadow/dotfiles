@@ -23,23 +23,8 @@ $ git config --global credential.helper store
 
 # neovim
 ```
-$ sudo apt-get install python-pip
 $ pip install -U pip
 $ sudo pip install --upgrade neovim
-```
-
-```
-$ git clone --recursive git://github.com/meh/vimmeh.git .vimmeh
-$ ln -s ~/.vimmeh ~/.vim
-$ ln -s ~/.vimmeh/vimrc ~/.vimrc
-$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-$ ln -s ~/.vimrc ~/.config/nvim/init.vim
-```
-
-```
-$ cd ~/.vim/bundle/YouCompleteMe
-$ sudo apt-get install build-essential cmake python-dev python3-dev
-$ ./install.py --js-completer --rust-completer --clang-completer
 ```
 
 # mpv
