@@ -48,6 +48,9 @@ set invcul
 set invcursorcolumn
 set colorcolumn=80
 
+" brew install par - gq to format
+set formatprg=par\ -w80
+
 " Miscs
 set noerrorbells
 set novisualbell
@@ -107,20 +110,6 @@ set nowrap
 set wildmode=longest:full
 set wildmenu
 set signcolumn=yes
-
-" Rust syntax
-let g:rust_recommended_style = 1
-
-" delimitMate
-let g:delimitMate_no_esc_mapping = 1
-
-" startify
-let g:startify_skiplist = [
-      \ 'COMMIT_EDITMSG',
-      \ $VIMRUNTIME .'/doc',
-      \ 'bundle/.*/doc' ,
-      \ 'vimpager'
-      \ ]
 
 " vimpager
 let vimpager_disable_x11 = 1

@@ -3,10 +3,13 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'adelarsq/vim-matchit'
 Plug 'dstein64/vim-startuptime'
-Plug 'mhinz/vim-startify'
 Plug 'mileszs/ack.vim'
 Plug 'ciaranm/detectindent'
 Plug 'vim-scripts/DrawIt'
+
+Plug 'unblevable/quick-scope'
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_highlight_on_keys = ['f', 'F']
 
 " Functionalities
 Plug 'tpope/vim-surround' " e.g. ys$
@@ -15,6 +18,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
+Plug 'dylanaraps/root.vim'
 
 Plug 'paradigm/vim-multicursor'
 Plug 'Shougo/unite.vim'
@@ -22,6 +26,26 @@ Plug 'skwp/vim-spec-finder'
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
 Plug 'easymotion/vim-easymotion' " ;;j
+Plug 'Yggdroot/indentLine'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical" ":UltiSnipsEdit
+
+" startify
+Plug 'mhinz/vim-startify'
+let g:startify_skiplist = [
+      \ 'COMMIT_EDITMSG',
+      \ $VIMRUNTIME .'/doc',
+      \ 'bundle/.*/doc' ,
+      \ 'vimpager'
+      \ ]
+let g:startify_change_to_vcs_root=1
+let g:startify_bookmarks = [ '~/.config/nvim/plugins.vim', '~/.zshrc' ]
 
 Plug 'danchoi/ri.vim'
 nnoremap <Leader>ri :call ri#OpenSearchPrompt(0)<CR>
@@ -41,7 +65,7 @@ Plug 'janko/vim-test'
 let test#strategy = "neovim"
 let g:test#preserve_screen = 1
 let test#neovim#term_position = "botright 20"
-let test#ruby#use_spring_binstub = 1
+" let test#ruby#use_spring_binstub = 1
 
 " EasyAlign
 Plug 'junegunn/vim-easy-align'
@@ -88,13 +112,14 @@ let g:syntastic_mode_map = { 'mode': 'active',
 " Neoformat
 Plug 'sbdchd/neoformat'
 let g:neoformat_only_msg_on_error = 1
-let g:neoformat_basic_format_align = 1
-let g:neoformat_basic_format_retab = 1
-let g:neoformat_basic_format_trim = 1
 " augroup fmt
 "   autocmd!
 "   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 " augroup END
+
+" Splitjoin (gS/gJ)
+Plug 'AndrewRadev/splitjoin.vim'
+nmap sj :SplitjoinSplit<cr>
 
 " Tagbar
 Plug 'majutsushi/tagbar'
@@ -126,14 +151,19 @@ Plug 'vim-scripts/JSON.vim'
 Plug 'groenewege/vim-less'
 Plug 'juvenn/mustache.vim'
 Plug 'programble/ooc.vim'
+Plug 'udalov/kotlin-vim'
 Plug 'petdance/vim-perl'
 Plug 'uarun/vim-protobuf'
 Plug 'vim-scripts/rfc-syntax'
 Plug 'vim-ruby/vim-ruby'
-Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'bumaociyuan/vim-swift'
 Plug 'jamessan/vim-gnupg'
+Plug 'hashivim/vim-terraform'
+
+" Rust
+Plug 'rust-lang/rust.vim'
+let g:rust_recommended_style = 1
 
 " Markdown
 Plug 'tpope/vim-markdown'
@@ -149,8 +179,8 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 let g:coc_global_extensions = ['coc-solargraph']
+
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
 endif
@@ -166,14 +196,14 @@ let g:echodoc#type = 'floating'
 highlight link EchoDocFloat Pmenu
 
 " Autocompletion manager
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-cssomni'
-Plug 'ncm2/ncm2-coc'
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-cssomni'
+" Plug 'ncm2/ncm2-coc'
 
-autocmd BufEnter * call ncm2#enable_for_buffer()
-autocmd TextChangedI * call ncm2#auto_trigger()
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" autocmd TextChangedI * call ncm2#auto_trigger()
 
 " Show blame at every line
 " if exists("*nvim_create_namespace")

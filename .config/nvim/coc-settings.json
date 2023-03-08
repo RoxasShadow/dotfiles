@@ -6,7 +6,9 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "css",
+    "scss"
   ],
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true,

@@ -1,11 +1,12 @@
+ru settings.vim
 ru plugins.vim
 ru status.vim
 ru mappings.vim
-ru settings.vim
 ru commands.vim
 
-" required: CocInstall coc-eslint coc-prettier
-source ~/.config/nvim/coc.vim
+" required: CocInstall coc-eslint coc-prettier coc-snippets
+" required: yarn add --dev prettier @prettier/plugin-ruby
+ru coc.vim
 
 " Open related test file with :RelatedSpecOpen / Ctrl+s
-source ~/.config/nvim/spec-finder.vim
+ru spec-finder.vim
