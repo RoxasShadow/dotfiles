@@ -43,17 +43,25 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
+setopt SHARE_HISTORY HIST_IGNORE_DUPS
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Skip the verification of insecure directories
+ZSH_DISABLE_COMPFIX=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(git environment editor completion history directory spectrum archive command-not-found rsync ruby perl yum syntax-highlighting history-substring-search prompt)
-plugins=(command-not-found history osx history-substring-search z branch bundler)
+plugins=(history zsh-history-substring-search z branch bundler rvm zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bashrc
+
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # User configuration
 
@@ -82,19 +90,28 @@ DISABLE_UPDATE_PROMPT=true
 
 ulimit -n 2560
 
-export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
-export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
+export PROJECTS_HOME=
+export GITHUB_SSH_KEY=$(cat ~/.ssh/id_ed25519.base64)
+export GITHUB_AUTH_TOKEN=ghp_
 
 # for pulling a branch that was force-pushed
 alias gpull='branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD) && git fetch && git reset --hard "origin/$branch"'
 
-zprof
-
-[ -z "$ZSH_NAME" ] && [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export JAVA_HOME="/usr/local/opt/openjdk"
-export LDFLAGS="-L/usr/local/opt/libffi/lib"
-export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
-source ~/.profile
+
+export PACT_DO_NOT_TRACK=true
+
+git() {
+  if [[ $@ == 'push -f'* || $@ == 'push --force'* ]]; then
+    echo Fallbacking to --force-with-lease instead
+    command git push --force-with-lease
+  else
+    command git "$@"
+  fi
+}
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+#zprof
