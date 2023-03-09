@@ -102,6 +102,11 @@ export PATH="$HOME/.local/bin:$PATH"
 
 export PACT_DO_NOT_TRACK=true
 
+# For compilers to find openssl@1.1 you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
+
 git() {
   if [[ $@ == 'push -f'* || $@ == 'push --force'* ]]; then
     echo Fallbacking to --force-with-lease instead
