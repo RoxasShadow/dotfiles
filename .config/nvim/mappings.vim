@@ -21,6 +21,7 @@ map <silent> <C-T> :tabnew<CR>
 map <silent> <C-W> :tabclose<CR>
 map <silent> <S-H> :tabprevious<CR>
 map <silent> <S-L> :tabnext<CR>
+nnoremap <silent><Leader>t :Buffers<CR>
 
 " Windows
 nnoremap <silent> <C-h> :wincmd h<CR>
