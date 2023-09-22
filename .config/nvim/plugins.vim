@@ -36,6 +36,11 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical" ":UltiSnipsEdit
 
+" ChatGTP
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
+
 " startify
 Plug 'mhinz/vim-startify'
 let g:startify_skiplist = [
@@ -117,7 +122,7 @@ let g:neoformat_only_msg_on_error = 1
 "   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
 " augroup END
 
-" Splitjoin (gS/gJ)
+" Splitjoin (gS/gJ) / gq
 Plug 'AndrewRadev/splitjoin.vim'
 nmap sj :SplitjoinSplit<cr>
 
