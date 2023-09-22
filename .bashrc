@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 export TERM=xterm-256color
 #export LC_ALL=it_IT.UTF-8
 #export LANG=it_IT.UTF-8
@@ -7,7 +7,7 @@ export HOMEBREW_NO_ANALYTICS=1
 alias ss='screenshot'
 alias xclip='xclip -selection c'
 alias lol='echo lol'
-alias nano='vim'
+alias nano='nvim'
 
 alias vim="nvim"
 alias vi="nvim"
