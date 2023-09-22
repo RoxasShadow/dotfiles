@@ -1,0 +1,3 @@
+.config/nvim/node_modules
+.config/nvim/yarn.lock
+.config/nvim/package.json
