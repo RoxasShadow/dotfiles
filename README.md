@@ -41,3 +41,7 @@ $ patch -p1 < mpv.patch
 
 Edit `is_laptop()` and `is_desktop()` in
 `scripts/auto-profiles-functions.lua` accordingly.
+
+# miscs
+- https://www.chrisatmachine.com/posts/01-macos-developer-setup
+- https://sourabhbajaj.com/mac-setup/
