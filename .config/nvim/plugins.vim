@@ -52,6 +52,10 @@ let g:startify_skiplist = [
 let g:startify_change_to_vcs_root=1
 let g:startify_bookmarks = [ '~/.config/nvim/plugins.vim', '~/.zshrc' ]
 
+Plug 'kdheepak/lazygit.nvim'
+" setup mapping to call :LazyGit ;gh
+nnoremap <silent> <Leader>gh :LazyGit<CR>
+
 Plug 'danchoi/ri.vim'
 nnoremap <Leader>ri :call ri#OpenSearchPrompt(0)<CR>
 nnoremap <Leader>RI :call ri#OpenSearchPrompt(1)<CR>
