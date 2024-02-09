@@ -78,7 +78,6 @@ set rnu
 set fileencodings=utf-8,latin1
 set encoding=utf-8
 set termencoding=utf-8
-set guifont=Terminus\ 8
 
 set helplang=en
 set history=1000

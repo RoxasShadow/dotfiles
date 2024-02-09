@@ -28,6 +28,9 @@ Plug 'zefei/vim-wintabs-powerline'
 Plug 'easymotion/vim-easymotion' " ;;j
 Plug 'Yggdroot/indentLine'
 
+" Copilot
+Plug 'github/copilot.vim'
+
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
