@@ -30,6 +30,9 @@ Plug 'Yggdroot/indentLine'
 
 " Copilot
 Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -42,7 +45,7 @@ let g:UltiSnipsEditSplit="vertical" ":UltiSnipsEdit
 " ChatGTP
 Plug 'nvim-lua/plenary.nvim'
 Plug 'MunifTanjim/nui.nvim'
-Plug 'dpayne/CodeGPT.nvim'
+Plug 'jackMort/ChatGPT.nvim'
 
 " startify
 Plug 'mhinz/vim-startify'
@@ -122,8 +125,8 @@ let g:syntastic_mode_map = { 'mode': 'active',
       \ 'passive_filetypes': ['javascript'] }
 
 " Neoformat
-Plug 'sbdchd/neoformat'
-let g:neoformat_only_msg_on_error = 1
+" Plug 'sbdchd/neoformat'
+" let g:neoformat_only_msg_on_error = 1
 " augroup fmt
 "   autocmd!
 "   au BufWritePre * try | undojoin | Neoformat | catch /^Vim\%((\a\+)\)\=:E790/ | finally | silent Neoformat | endtry
@@ -167,7 +170,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'petdance/vim-perl'
 Plug 'uarun/vim-protobuf'
 Plug 'vim-scripts/rfc-syntax'
-Plug 'vim-ruby/vim-ruby'
+Plug 'jlcrochet/vim-ruby'
 Plug 'cespare/vim-toml'
 Plug 'bumaociyuan/vim-swift'
 Plug 'jamessan/vim-gnupg'
@@ -186,7 +189,7 @@ let g:markdown_folding = 0
 " Javascript
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " CoC

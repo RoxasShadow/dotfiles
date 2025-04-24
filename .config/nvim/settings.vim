@@ -11,6 +11,7 @@ set title
 set exrc
 set secure
 set viminfo+=!
+set re=0
 
 " Fix keys
 if &term =~ "rxvt"
@@ -46,7 +47,7 @@ set nobackup
 " Highlight line
 set invcul
 set invcursorcolumn
-set colorcolumn=80
+set colorcolumn=+0
 
 " brew install par - gq to format
 set formatprg=par\ -w80
@@ -77,7 +78,6 @@ set rnu
 
 set fileencodings=utf-8,latin1
 set encoding=utf-8
-set termencoding=utf-8
 
 set helplang=en
 set history=1000
@@ -96,13 +96,14 @@ set preserveindent
 set shiftwidth=2
 set softtabstop=2
 "set ts=2
+set tw=130
 set expandtab
 set modeline
 set tildeop
 set cpoptions+=$
 set breakindent
 set backspace=2
-set textwidth=72
+set textwidth=120
 set nowrap
 
 " Wild mode

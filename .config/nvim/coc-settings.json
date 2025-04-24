@@ -14,5 +14,8 @@
   "coc.preferences.formatOnType": true,
   "eslint.autoFixOnSave": true,
   "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "prettier.disableSuccessMessage": true
+  "eslint.packageManager": "yarn",
+  "workspace.workspaceFolderCheckCwd": false,
+  "prettier.disableSuccessMessage": true,
+  "eslint.experimental.useFlatConfig": true,
 }
