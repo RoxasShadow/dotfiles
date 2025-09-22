@@ -33,6 +33,7 @@ Plug 'github/copilot.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
+Plug 'nvim-treesitter/nvim-treesitter' " TSInstall diff
 
 " Snippets
 Plug 'SirVer/ultisnips'
